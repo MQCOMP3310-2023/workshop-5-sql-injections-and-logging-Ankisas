@@ -1,6 +1,7 @@
 package workshop05code;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -29,7 +30,7 @@ public class App {
 
     private static final Logger logger = Logger.getLogger(App.class.getName());
     // End code for logging exercise
-    
+
     /**
      * @param args the command line arguments
      */
@@ -72,18 +73,21 @@ public class App {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Enter a 4 letter word for a guess or q to quit: ");
             String guess = scanner.nextLine();
+            if ("asd".equals(guess)) {
+                System.out.println("This isnt LMAO");
+            } else {
+                while (!guess.equals("q")) {
+                    System.out.println("You've guessed '" + guess + "'.");
 
-            while (!guess.equals("q")) {
-                System.out.println("You've guessed '" + guess+"'.");
+                    if (wordleDatabaseConnection.isValidWord(guess)) {
+                        System.out.println("Success! It is in the the list.\n");
+                    } else {
+                        System.out.println("Sorry. This word is NOT in the the list.\n");
+                    }
 
-                if (wordleDatabaseConnection.isValidWord(guess)) { 
-                    System.out.println("Success! It is in the the list.\n");
-                }else{
-                    System.out.println("Sorry. This word is NOT in the the list.\n");
+                    System.out.print("Enter a 4 letter word for a guess or q to quit: ");
+                    guess = scanner.nextLine();
                 }
-
-                System.out.print("Enter a 4 letter word for a guess or q to quit: " );
-                guess = scanner.nextLine();
             }
         } catch (NoSuchElementException | IllegalStateException e) {
             e.printStackTrace();
